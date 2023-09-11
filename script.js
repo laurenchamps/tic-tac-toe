@@ -27,17 +27,10 @@ function checkWinner(index) {
     ]
 
     console.log(winningCombinations.filter(combination => combination.includes(index)).some(set => set.every(item => gameBoard[item] === 'X')));
-    
-    winningCombinations.every(item => console.log(item));
 
-        // for (let j = 0; j < 3; j++) {
-        //     if (gameBoard[(winningCombinations[i][j])] !== 'X') {
-        //         console.log(`${winningCombinations[i][j]} is not a match`)
-        //         break;
-        //     } else if (gameBoard[(winningCombinations[i][j])] === 'X') {
-        //         console.log('We have a winner');
-        //     };
-        // }
+    return winningCombinations
+        .filter(combination => combination.includes(index))
+        .some(set => set.every(item => gameBoard[item] === 'X'));
 }
 
 checkWinner(5);
