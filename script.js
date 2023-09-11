@@ -1,5 +1,5 @@
 const square = document.querySelectorAll(".board-square");
-const gameBoard = ["", "", "", "", "", "", "", "", ""];
+const gameBoard = ["X", "", "X", "X", "X", "X", "", "", ""];
 
 let turn = 'X';
 
@@ -13,6 +13,34 @@ function takeTurn(e) {
 square.forEach(square => {
     square.addEventListener('click', takeTurn, { once: true} )
 });
+
+function checkWinner(index) {
+    const winningCombinations = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ]
+
+    console.log(winningCombinations.filter(combination => combination.includes(index)).some(set => set.every(item => gameBoard[item] === 'X')));
+    
+    winningCombinations.every(item => console.log(item));
+
+        // for (let j = 0; j < 3; j++) {
+        //     if (gameBoard[(winningCombinations[i][j])] !== 'X') {
+        //         console.log(`${winningCombinations[i][j]} is not a match`)
+        //         break;
+        //     } else if (gameBoard[(winningCombinations[i][j])] === 'X') {
+        //         console.log('We have a winner');
+        //     };
+        // }
+}
+
+checkWinner(5);
 
 
 // // Create a data structure to hold the players' moves e.g [[0,0,0], [0,0,0], [0,0,0]]
