@@ -1,11 +1,13 @@
 const square = document.querySelectorAll(".board-square");
-const gameBoard = ["X", "", "X", "X", "X", "X", "", "", ""];
+const gameBoard = ["", "", "", "", "", "", "", "", ""];
 
 let turn = 'X';
+let currentPlayer = '';
 
 function takeTurn(e) {
     e.target.textContent = turn;
     gameBoard[e.target.getAttribute("data-index")] = turn;
+    setCurrentPlayerMarker(turn);
     turn === 'X' ? turn = '0': turn = 'X';
     console.log(gameBoard);
 } 
@@ -26,15 +28,20 @@ function checkWinner(index) {
         [2, 4, 6]
     ]
 
-    console.log(winningCombinations.filter(combination => combination.includes(index)).some(set => set.every(item => gameBoard[item] === 'X')));
+    console.log(winningCombinations.filter(combination => combination.includes(index)).some(set => set.every(item => gameBoard[item] === currentPlayer)));
 
     return winningCombinations
         .filter(combination => combination.includes(index))
-        .some(set => set.every(item => gameBoard[item] === 'X'));
+        .some(set => set.every(item => gameBoard[item] === currentPlayer));
 }
 
 checkWinner(5);
 
+function setCurrentPlayerMarker(turn) {
+    currentPlayer = turn;
+    console.log(currentPlayer);
+    return currentPlayer;
+}
 
 // // Create a data structure to hold the players' moves e.g [[0,0,0], [0,0,0], [0,0,0]]
 
