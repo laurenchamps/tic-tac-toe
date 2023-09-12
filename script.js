@@ -30,14 +30,12 @@ const playGame = (() => {
         
         if (winner) {
             result = `${currentPlayer} wins`;
-            displayResult();
-            endGame();
+            displayResult(result);
         };
         
-        if (round === 9) {
+        if (round === 9 && !winner) {
             result = 'It\'s a draw';
-            displayResult();
-            endGame();
+            displayResult(result);
         };
         
         switchTurn(currentPlayer);
@@ -78,9 +76,10 @@ const playGame = (() => {
                 .every(value => gameboard.board[value] === currentPlayer));
     };
 
-    const displayResult = () => {
-        alert(result);
-    };
+    function displayResult(result) {
+        document.querySelector('.result-text').textContent = result;
+        document.querySelector('dialog').showModal();
+    }
 
     const endGame = () => {
         location.reload();
@@ -90,6 +89,5 @@ const playGame = (() => {
     boardElement.forEach(element => {
             element.addEventListener('click', takeTurn, { once: true} )
         }); 
-
 })();
 
