@@ -1,16 +1,13 @@
 const boardElement = document.querySelectorAll('.board-square');
 const markers = document.querySelectorAll('.marker');
 
-gameboard = {
+const gameboard = {
     board: ["", "", "", "", "", "", "", "", ""]
-}
-
-console.log(gameboard.board);
+};
 
 const Player = (marker) => {
     return { marker };
 };
-
 
 const playGame = (() => {
     // Create players
@@ -20,6 +17,31 @@ const playGame = (() => {
     let turnTracker = 'X';
     let round = 0;
     let currentPlayer = "";
+    let result;
+
+    const takeTurn = (e) => {
+        let boardIndex = e.target.getAttribute("data-index");
+        setCurrentPlayerMarker(turnTracker);
+        addMarkerToBoard(e, currentPlayer);
+        updateBoard(e, currentPlayer, boardIndex);
+
+        round++;
+        let winner = checkWinner(boardIndex, currentPlayer);
+
+        if (winner) {
+            result = `${currentPlayer} wins`;
+            displayResult();
+            endGame();
+        };
+
+        if (round === 9) {
+            result = 'It\'s a draw';
+            displayResult();
+            endGame();
+        };
+
+        switchTurn(currentPlayer);
+    };
 
     const setCurrentPlayerMarker = (turn) => {
         currentPlayer = turn;
@@ -49,33 +71,25 @@ const playGame = (() => {
             [2, 4, 6]
         ];
 
-        let filter = winningCombinations.filter(function(array) {return array.includes(Number(boardIndex))});
-        let every = filter.some(combination => console.log(combination));
-            // {combination.every(num => gameboard.board[num] === currentPlayer)});
-
-        console.log(every);
+        return winningCombinations
+            .filter(function(array) {return array.includes(Number(boardIndex))})
+            .some(combination => combination
+                .every(value => gameboard.board[value] === currentPlayer));
     };
 
-    const takeTurn = (e) => {
-        let boardIndex = e.target.getAttribute("data-index");
-        setCurrentPlayerMarker(turnTracker);
-        addMarkerToBoard(e, currentPlayer);
-        updateBoard(e, currentPlayer, boardIndex);
-
-        round++;
-        checkWinner(boardIndex, currentPlayer);
-        switchTurn(currentPlayer);
-        console.log(gameboard.board);
-
+    const displayResult = () => {
+        alert(result);
     };
 
+    const endGame = () => {
+        location.reload();
+    };
+
+    // Event listener
     boardElement.forEach(element => {
             element.addEventListener('click', takeTurn, { once: true} )
-        });
+        }); 
 
-
-
-    
 })();
 
 
