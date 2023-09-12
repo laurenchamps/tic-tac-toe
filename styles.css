@@ -62,18 +62,21 @@ body {
   }
 
   header {
-    padding: 1rem 0;
+    padding: 2em 0;
   }
 
   main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
   }
 
   main section {
-    padding-bottom: 3em;
+    padding-bottom: 4em;
+  }
+
+  #gameboard {
   }
 
   .display-turn {
