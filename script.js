@@ -26,17 +26,7 @@ const playGame = (() => {
         updateBoard(e, currentPlayer, boardIndex);
         round++;
         
-        let winner = checkWinner(boardIndex, currentPlayer);
-        
-        if (winner) {
-            result = `${currentPlayer} wins!`;
-            displayResult(result);
-        };
-        
-        if (round === 9 && !winner) {
-            result = 'It\'s a draw';
-            displayResult(result);
-        };
+        checkWinner(boardIndex, currentPlayer);
         
         switchTurn(currentPlayer);
         displayTurn(currentPlayer);
@@ -70,10 +60,22 @@ const playGame = (() => {
             [2, 4, 6]
         ];
 
-        return winningCombinations
+        let winner = winningCombinations
             .filter(function(array) {return array.includes(Number(boardIndex))})
             .some(combination => combination
                 .every(value => gameboard.board[value] === currentPlayer));
+
+        if (winner) {
+            result = `${currentPlayer} wins!`;
+            return displayResult(result);
+        };
+        
+        if (round === 9) {
+            result = 'It\'s a draw';
+            return displayResult(result);
+        };
+    
+        
     };
 
     function displayResult(result) {
