@@ -1,7 +1,7 @@
 const boardElement = document.querySelectorAll('.board-square');
 const markers = document.querySelectorAll('.marker');
 
-const gameboard = {
+const gameBoard = {
     board: ["", "", "", "", "", "", "", "", ""]
 };
 
@@ -10,7 +10,7 @@ const Player = (marker) => {
 };
 
 
-const playGame = (() => {
+const displayController = (() => {
     const playerX = Player('X');
     const player0 = Player('0');
     
@@ -45,7 +45,7 @@ const playGame = (() => {
     };
 
     const updateBoard = (e, currentPlayer, boardIndex) => {
-        gameboard.board[boardIndex] = currentPlayer;
+        gameBoard.board[boardIndex] = currentPlayer;
     };
 
     const checkWinner = (boardIndex, currentPlayer) => {
@@ -63,7 +63,7 @@ const playGame = (() => {
         let winner = winningCombinations
             .filter(function(array) {return array.includes(Number(boardIndex))})
             .some(combination => combination
-                .every(value => gameboard.board[value] === currentPlayer));
+                .every(value => gameBoard.board[value] === currentPlayer));
 
         if (winner) {
             result = `${currentPlayer} wins!`;
