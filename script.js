@@ -29,7 +29,7 @@ const playGame = (() => {
         let winner = checkWinner(boardIndex, currentPlayer);
         
         if (winner) {
-            result = `${currentPlayer} wins`;
+            result = `${currentPlayer} wins!`;
             displayResult(result);
         };
         
@@ -81,13 +81,15 @@ const playGame = (() => {
         document.querySelector('dialog').showModal();
     }
 
-    const endGame = () => {
+    const reset = () => {
         location.reload();
     };
 
-    // Event listener
+    // Event listeners
     boardElement.forEach(element => {
             element.addEventListener('click', takeTurn, { once: true} )
         }); 
+
+    document.querySelector('.close-modal').addEventListener('click', reset);
 })();
 
